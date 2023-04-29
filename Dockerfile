@@ -1,5 +1,7 @@
-FROM nginx
-MAINTAINER MisakaNo
+FROM nginx:lates
+EXPOSE 80
+WORKDIR /app
+USER root
 
 RUN apt-get update -y && apt-get install -y wget unzip nginx supervisor net-tools
 
@@ -7,8 +9,15 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY nginx.conf /etc/nginx/nginx.conf
 
 RUN mkdir /etc/xray /usr/local/xray
-COPY config.json /etc/xray/
-COPY entrypoint.sh /usr/local/xray/
+#COPY config.json /etc/xray/
+#COPY entrypoint.sh /usr/local/xray/
+
+
+COPY config.json ./
+
+COPY entrypoint.sh ./
+
+
 
 # 感谢 fscarmen 大佬提供 Dockerfile 层优化方案
 RUN wget -q -O /tmp/xray-linux-64.zip https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip && \
