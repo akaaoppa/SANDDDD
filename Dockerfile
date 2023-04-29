@@ -9,13 +9,10 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY nginx.conf /etc/nginx/nginx.conf
 
 RUN mkdir /etc/xray /usr/local/xray
-#COPY config.json /etc/xray/
-#COPY entrypoint.sh /usr/local/xray/
+COPY config.json /etc/xray/
+COPY entrypoint.sh /usr/local/xray/
 
 
-COPY config.json ./
-
-COPY entrypoint.sh ./
 
 
 
